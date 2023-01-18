@@ -1,16 +1,30 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Courses = (props) => {
-    let course = props.course;    
+    let {courses} = props;  
+    let url =  window.location.href;
+    let id = url.substring(url.lastIndexOf('/') +1);
+    let index = id - 1;
+    let course = courses[index];
     let materials = course.materialsNeeded;
+    let materialsArray = [];
+    if (materials !== null) {
+        materialsArray = materials.split('*');
+    }
+ 
+    
     let materialsList;
+    materialsList = materialsArray.map(material => <li>{material}</li>);
 
-    materialsList = materials.map(material =>
-        <li>{material}</li>
-    );
+    console.log(materialsArray);
 
-   return(
+    
+
+  
+    
+   
+    return(
     <React.Fragment>
     <div className="actions--bar">
         <div className="wrap">
@@ -27,7 +41,7 @@ const Courses = (props) => {
                 <div>
                     <h3 className="course--detail--title">Course</h3>
                     <h4 className="course--name">{course.title}</h4>
-                    <p>{course.userId}</p>
+                    <p>By: {course.User.firstName} {course.User.lastName}</p>
 
                     <p>{course.description} </p>
                         
@@ -35,11 +49,11 @@ const Courses = (props) => {
         
                 <div>
                     <h3 className="course--detail--title">Estimated Time</h3>
-                    <p>{course.estimatedTime}</p>
+                    <p>{course.estimatedTime} Hours</p>
 
                     <h3 className="course--detail--title">Materials Needed</h3>
                     <ul className="course--detail--list">
-                        {materialsList}
+                       {materialsList}
                     </ul>
                 </div>
             </div>

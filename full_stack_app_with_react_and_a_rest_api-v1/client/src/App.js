@@ -17,26 +17,21 @@ import UserSignUp from "./components/UserSignUp";
 import Courses from './components/Courses';
 import NotFound from './components/NotFound';
 
-
-
-
 function App() {
   let [courses, setCourses] = useState([]);
-  let [course, setCourse] = useState([]);
 
 //pull data for cats
 useEffect(() => {
-  axios.get("http://localhost:5000/api/courses")
+ axios.get("http://localhost:5000/api/courses")
 .then(response => {
   // handle success
   setCourses(response.data);
-  console.log(response.data);
 })
 .catch(error => {
   // handle error
   console.log("Error fetching and parsing data", error);
 });
-}, []);
+},[]);
 
 
   return (
@@ -44,14 +39,14 @@ useEffect(() => {
       <Header />
       
       <Routes>
-        <Route path="/" element={Courses} courses={courses}/>
-        <Route path="/courses/create" element={CreateCourse} />
-        <Route path="/courses/:id/update" element={UpdateCourse} />
-        <Route path="/courses/:id" element={CourseDetail} course={course} />
-        <Route path="/signin" element={UserSignIn} />
-        <Route path="/signup" element={UserSignUp} />
-        <Route path="/signout" element={UserSignOut} />
-        <Route element={NotFound} />
+        <Route path="/" element={<Courses courses={courses}/>} />
+        <Route path="/courses/create" element={<CreateCourse />} />
+        <Route path="/courses/:id/update" element={<UpdateCourse />} />
+        <Route path="/courses/:id" element={<CourseDetail courses={courses}/>} />
+        <Route path="/signin" element={<UserSignIn />} />
+        <Route path="/signup" element={<UserSignUp />} />
+        <Route path="/signout" element={<UserSignOut />} />
+        <Route element={<NotFound />} />
       </Routes>
     </React.Fragment>
   );
