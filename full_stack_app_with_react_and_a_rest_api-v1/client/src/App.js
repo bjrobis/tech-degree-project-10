@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  Routes,
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -39,21 +40,20 @@ useEffect(() => {
 
 
   return (
-    <span></span>
-    // <Router>
-    //   <div>
-    //     <Header />
-    //       <Route path="/" component={Courses} courses={courses}/>
-    //       <Route path="/courses/create" component={CreateCourse} />
-    //       <Route path="/courses/:id/update" component={UpdateCourse} />
-    //       <Route path="/courses/:id" component={CourseDetail} course={course} />
-    //       <Route path="/signin" component={UserSignIn} />
-    //       <Route path="/signup" component={UserSignUp} />
-    //       <Route path="/signout" component={UserSignOut} />
-    //       <Route component={NotFound} />
-    //  </div>
-    // </Router>
-    
+    <React.Fragment>
+      <Header />
+      
+      <Routes>
+        <Route exact path="/" component={Courses} courses={courses}/>
+        <Route path="/courses/create" component={CreateCourse} />
+        <Route path="/courses/:id/update" component={UpdateCourse} />
+        <Route path="/courses/:id" component={CourseDetail} course={course} />
+        <Route path="/signin" component={UserSignIn} />
+        <Route path="/signup" component={UserSignUp} />
+        <Route path="/signout" component={UserSignOut} />
+        <Route component={NotFound} />
+      </Routes>
+    </React.Fragment>
   );
 }
 

@@ -7,7 +7,6 @@ const Header = (props) => {
     
     return(
     <React.Fragment>
-    <head>
         <div className="wrap header--flex">
             <h1 className="header--logo"><a href="index.html">Courses</a></h1>
             <nav>
@@ -17,7 +16,6 @@ const Header = (props) => {
                 </ul>
             </nav>
         </div>
-    </head>
 
     </React.Fragment>
     );
