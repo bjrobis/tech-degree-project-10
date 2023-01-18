@@ -38,21 +38,20 @@ useEffect(() => {
 
 
   return (
-    <div> </div>
 
-    // <Router>
-    //   <div>
-    //     <Header />
-    //       <Route path="/" component={Courses} courses={courses}/>
-    //       <Route path="/courses/create" component={CreateCourse} />
-    //       <Route path="/courses/:id/update" component={UpdateCourse} />
-    //       <Route path="/courses/:id" component={CourseDetail} course={course} />
-    //       <Route path="/signin" component={UserSignIn} />
-    //       <Route path="/signup" component={UserSignUp} />
-    //       <Route path="/signout" component={UserSignOut} />
-    //       <Route component={NotFound} />
-    //  </div>
-    // </Router>
+    <Router>
+      <div>
+        <Header />
+          <Route path="/" component={Courses} courses={courses}/>
+          <Route path="/courses/create" component={CreateCourse} />
+          <Route path="/courses/:id/update" component={UpdateCourse} />
+          <Route path="/courses/:id" component={CourseDetail} course={course} />
+          <Route path="/signin" component={UserSignIn} />
+          <Route path="/signup" component={UserSignUp} />
+          <Route path="/signout" component={UserSignOut} />
+          <Route component={NotFound} />
+     </div>
+    </Router>
     
   );
 }
