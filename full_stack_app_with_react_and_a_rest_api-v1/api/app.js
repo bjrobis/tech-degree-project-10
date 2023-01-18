@@ -4,6 +4,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const routes = require('./routes');
+const cors = require('cors');
+
+
 
 const {sequelize} = require('./models'); // import Sequelize
 
@@ -21,6 +24,9 @@ app.use(morgan('dev'));
 
 // Add routes.
 app.use('/api', routes);
+
+// Enable All CORS Requests
+app.use(cors());
 
 // Test the database connection.
 (async () => {
