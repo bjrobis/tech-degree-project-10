@@ -22,11 +22,13 @@ app.use(express.json());
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
+// Enable All CORS Requests
+app.use(cors());
+
 // Add routes.
 app.use('/api', routes);
 
-// Enable All CORS Requests
-app.use(cors());
+
 
 // Test the database connection.
 (async () => {

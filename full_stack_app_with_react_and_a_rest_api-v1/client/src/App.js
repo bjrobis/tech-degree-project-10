@@ -7,7 +7,7 @@ import axios from 'axios';
 
 //App Components
 import Header from "./components/Header";
-import CourseDetail from "./components/CourseDetail";
+//import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import UserSignIn from "./components/UserSignIn";
