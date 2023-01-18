@@ -44,14 +44,14 @@ useEffect(() => {
       <Header />
       
       <Routes>
-        <Route exact path="/" component={Courses} courses={courses}/>
-        <Route path="/courses/create" component={CreateCourse} />
-        <Route path="/courses/:id/update" component={UpdateCourse} />
-        <Route path="/courses/:id" component={CourseDetail} course={course} />
-        <Route path="/signin" component={UserSignIn} />
-        <Route path="/signup" component={UserSignUp} />
-        <Route path="/signout" component={UserSignOut} />
-        <Route component={NotFound} />
+        <Route path="/" element={Courses} courses={courses}/>
+        <Route path="/courses/create" element={CreateCourse} />
+        <Route path="/courses/:id/update" element={UpdateCourse} />
+        <Route path="/courses/:id" element={CourseDetail} course={course} />
+        <Route path="/signin" element={UserSignIn} />
+        <Route path="/signup" element={UserSignUp} />
+        <Route path="/signout" element={UserSignOut} />
+        <Route element={NotFound} />
       </Routes>
     </React.Fragment>
   );
