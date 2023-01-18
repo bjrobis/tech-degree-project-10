@@ -7,7 +7,7 @@ import axios from 'axios';
 
 //App Components
 import Header from "./components/Header";
-//import CourseDetail from "./components/CourseDetail";
+import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import UserSignIn from "./components/UserSignIn";
@@ -28,7 +28,8 @@ useEffect(() => {
   axios.get("http://localhost:5000/api/courses")
 .then(response => {
   // handle success
-  setCourses(response.body)
+  setCourses(response.data);
+  console.log(response.data);
 })
 .catch(error => {
   // handle error
@@ -38,20 +39,20 @@ useEffect(() => {
 
 
   return (
-
-    <Router>
-      <div>
-        <Header />
-          <Route path="/" component={Courses} courses={courses}/>
-          <Route path="/courses/create" component={CreateCourse} />
-          <Route path="/courses/:id/update" component={UpdateCourse} />
-          <Route path="/courses/:id" component={CourseDetail} course={course} />
-          <Route path="/signin" component={UserSignIn} />
-          <Route path="/signup" component={UserSignUp} />
-          <Route path="/signout" component={UserSignOut} />
-          <Route component={NotFound} />
-     </div>
-    </Router>
+    <span></span>
+    // <Router>
+    //   <div>
+    //     <Header />
+    //       <Route path="/" component={Courses} courses={courses}/>
+    //       <Route path="/courses/create" component={CreateCourse} />
+    //       <Route path="/courses/:id/update" component={UpdateCourse} />
+    //       <Route path="/courses/:id" component={CourseDetail} course={course} />
+    //       <Route path="/signin" component={UserSignIn} />
+    //       <Route path="/signup" component={UserSignUp} />
+    //       <Route path="/signout" component={UserSignOut} />
+    //       <Route component={NotFound} />
+    //  </div>
+    // </Router>
     
   );
 }
