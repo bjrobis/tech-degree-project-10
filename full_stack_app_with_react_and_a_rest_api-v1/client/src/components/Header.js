@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 
 const Courses = (props) => {
-let [authUser, setAuthUser] = useRef([]);
+let [authUser, setAuthUser] = useState([]);
 
 
     return(
