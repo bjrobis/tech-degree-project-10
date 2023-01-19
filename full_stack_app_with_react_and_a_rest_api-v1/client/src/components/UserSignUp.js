@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const UserSignUp = (props) => {
+const UserSignUp = ({userSignIn}) => {
 
   let navigate = useNavigate();
     
@@ -17,6 +17,35 @@ const UserSignUp = (props) => {
     let [lastName, setLastName] = useState('');
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
+    let [errors, setErrors] = useState([]);
+
+    const handleSignUp = () => {
+        fetch('http://localhost:5000/api/users', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify(firstName, lastName, email, password)
+        })
+        .then(res => {
+            if(res.status  === 201) {
+                userSignIn(email, password);
+                navigate('/');
+            } else if(res.status === 500) {
+                navigate('/error')
+            } else {
+                return res.json();
+            }
+        })
+        .then(data => {
+            if(data) {
+                setErrors(data.errors);
+            }
+        })
+        .catch((error) => {
+            console.log('Error:', error);
+        });
+    }
 
 
 
@@ -25,7 +54,7 @@ const UserSignUp = (props) => {
     <React.Fragment>
         <div className="form--centered">
             <h2>Sign Up</h2>    
-            <form>
+            <form onSubmit={handleSignUp}>
                 <label for="firstName">First Name</label>
                 <input 
                     id="firstName" 

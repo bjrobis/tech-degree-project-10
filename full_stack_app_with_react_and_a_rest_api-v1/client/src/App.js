@@ -12,15 +12,18 @@ import CourseDetail from "./components/CourseDetail";
 import CreateCourse from "./components/CreateCourse";
 import UpdateCourse from "./components/UpdateCourse";
 import UserSignIn from "./components/UserSignIn";
-import UserSignOut from "./components/UserSignOut";
 import UserSignUp from "./components/UserSignUp";
 import Courses from './components/Courses';
 import NotFound from './components/NotFound';
+import UserSignOut from './components/UserSignOut';
+
 
 function App() {
+  //set state for variables
   let [courses, setCourses] = useState([]);
 
-//pull data for cats
+
+  //Pull in the course data
 useEffect(() => {
  axios.get("http://localhost:5000/api/courses")
 .then(response => {
@@ -32,6 +35,7 @@ useEffect(() => {
   console.log("Error fetching and parsing data", error);
 });
 },[]);
+
 
 
   return (

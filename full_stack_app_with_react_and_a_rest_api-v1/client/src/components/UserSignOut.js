@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
+import UserContext from '../context/UserContext';
 
 const UserSignOut = () => {
-<span></span>
+    const user = useContext(UserContext);
+    const {actions} = useContext(UserContext);
+
+    actions.userSignOut(user);
 
 };
 

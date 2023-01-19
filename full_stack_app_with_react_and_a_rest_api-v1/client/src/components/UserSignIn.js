@@ -1,32 +1,42 @@
-import React, {useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useState, useContext} from 'react';
+import { Link, useNavigate} from 'react-router-dom';
+import UserProvider from '../context/UserContext';
 
-const UserSignIn = (props) => {
-
-  let navigate = useNavigate();
+const UserSignIn = () => {
+    let navigate = useNavigate();
     
   const handleCancel = (event) => {
       event.preventDefault();
       navigate('/');
-    } 
+    }
 
-    let [email, setEmail] = useState('');
-    let [password, setPassword] = useState('');
-
+    const {actions} = useContext(UserProvider);
     
+
+
+    const [emailAddress, setEmailAddress] = useState();
+    const [password, setPassword] = useState();
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      actions.userSignIn(emailAddress, password);
+    }
+
+
+     
     return(
     <React.Fragment>
         <div className="form--centered">
             <h2>Sign In</h2>
                 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label for="emailAddress">Email Address</label>
                 <input 
                     id="emailAddress" 
                     name="emailAddress" 
                     type="email" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)}/>
+                    value={emailAddress} 
+                    onChange={(e) => setEmailAddress(e.target.value)}/>
                 <label for="password">Password</label>
                 <input 
                     id="password" 
