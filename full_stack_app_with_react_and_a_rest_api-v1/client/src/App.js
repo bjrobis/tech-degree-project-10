@@ -41,7 +41,7 @@ useEffect(() => {
       <Routes>
         <Route path="/" element={<Courses courses={courses}/>} />
         <Route path="/courses/create" element={<CreateCourse />} />
-        <Route path="/courses/:id/update" element={<UpdateCourse />} />
+        <Route path="/courses/:id/update" element={<UpdateCourse courses={courses}/>} />
         <Route path="/courses/:id" element={<CourseDetail courses={courses}/>} />
         <Route path="/signin" element={<UserSignIn />} />
         <Route path="/signup" element={<UserSignUp />} />

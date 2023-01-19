@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Courses = (props) => {
     let {courses} = props;  
@@ -12,12 +12,35 @@ const Courses = (props) => {
     if (materials !== null) {
         materialsArray = materials.split('*');
     }
- 
+    
+    let updateCourseURL = `/courses/${id}/update`;
     
     let materialsList;
     materialsList = materialsArray.map(material => <li>{material}</li>);
 
-    console.log(materialsArray);
+    let navigate = useNavigate();
+
+    let [posts, setPosts] = useState([]);
+
+// Delete with fetchAPI
+   const handleDelete = async () => {
+    let response = await fetch(
+       `http://localhost:5000/api/courses/${id}`,
+       {
+          method: 'DELETE',
+       }
+    );
+    if (response.status === 200) {
+       setPosts(
+          posts.filter((post) => {
+             return post.id !== id;
+          })
+       );
+       navigate('/');
+    } else {
+       return;
+    }
+ };
 
     
 
@@ -28,9 +51,9 @@ const Courses = (props) => {
     <React.Fragment>
     <div className="actions--bar">
         <div className="wrap">
-            <Link className="button" to="update-course.html">Update Course</Link>
-            <Link className="button" to="#">Delete Course</Link>
-            <Link className="button button-secondary" to="index.html">Return to List</Link>
+            <Link className="button" to={updateCourseURL}>Update Course</Link>
+            <Link className="button" onClick={handleDelete}>Delete Course</Link>
+            <Link className="button button-secondary" to="/">Return to List</Link>
         </div>
     </div>
 
