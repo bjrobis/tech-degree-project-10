@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 
+
 //App Components
 import Header from "./components/Header";
 import CourseDetail from "./components/CourseDetail";
@@ -15,6 +16,7 @@ import UserSignUp from "./components/UserSignUp";
 import Courses from './components/Courses';
 import NotFound from './components/NotFound';
 import UserSignOut from './components/UserSignOut';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -44,8 +46,21 @@ useEffect(() => {
       
       <Routes>
         <Route path="/" element={<Courses courses={courses}/>} />
-        <Route path="/courses/create" element={<CreateCourse />} />
-        <Route path="/courses/:id/update" element={<UpdateCourse courses={courses}/>} />
+
+        <Route path="/courses/create" element={
+          <PrivateRoute>
+            <CreateCourse />
+          </PrivateRoute>
+         } 
+        />
+        
+        <Route path="/courses/:id/update" element={
+          <PrivateRoute>
+            <UpdateCourse courses={courses}/>
+          </PrivateRoute>
+        } 
+        />
+
         <Route path="/courses/:id" element={<CourseDetail courses={courses}/>} />
         <Route path="/signin" element={<UserSignIn />} />
         <Route path="/signup" element={<UserSignUp />} />

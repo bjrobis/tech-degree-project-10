@@ -34,6 +34,7 @@ const userSignIn = (emailAddress, password) => {
           //Set data for current user in global state
           setUser(data);
           setUser(prevState => ({...prevState, password: password}));
+          console.log(user);
       };
   })
   .catch((error) => {
