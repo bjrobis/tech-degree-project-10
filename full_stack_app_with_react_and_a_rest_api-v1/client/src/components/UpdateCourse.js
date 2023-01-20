@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../context/UserContext';
 
 const UpdateCourse = (props) => {
  
-
+  const {user} = useContext(UserContext);
     let {courses} = props;
     let url =  window.location.href;
     let substring = url.substring(url.lastIndexOf('/courses/') +1);
@@ -32,6 +33,10 @@ const UpdateCourse = (props) => {
         try {
           let res = await fetch(putURL, {
             method: "PUT",
+            headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
+            },
             body: JSON.stringify({
               title: courseTitle,
               description: courseDescription,

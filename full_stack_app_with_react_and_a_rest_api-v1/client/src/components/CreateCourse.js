@@ -1,11 +1,12 @@
 import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import UserContext from '../context/UserContext';
 
 
 
 const CreateCourse = () => {
     let navigate = useNavigate();
+    const {user} = useContext(UserContext);
     
     //Set State
     let [courseTitle, setCourseTitle] = useState("");
@@ -24,6 +25,10 @@ const CreateCourse = () => {
         try {
           let res = await fetch("http://localhost:5000/api/courses", {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
+            },
             body: JSON.stringify({
               title: courseTitle,
               description: courseDescription,

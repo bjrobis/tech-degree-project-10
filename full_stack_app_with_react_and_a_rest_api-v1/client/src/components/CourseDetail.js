@@ -34,6 +34,9 @@ const Courses = (props) => {
        `http://localhost:5000/api/courses/${id}`,
        {
           method: 'DELETE',
+          headers: {
+            "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
+          },
        }
     );
     if (response.status === 200) {
