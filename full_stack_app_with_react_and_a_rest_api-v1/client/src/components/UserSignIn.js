@@ -30,20 +30,23 @@ const UserSignIn = () => {
             <h2>Sign In</h2>
                 
             <form onSubmit={handleSubmit}>
-                <label for="emailAddress">Email Address</label>
+                <label>Email Address
                 <input 
                     id="emailAddress" 
                     name="emailAddress" 
                     type="email" 
                     value={emailAddress} 
                     onChange={(e) => setEmailAddress(e.target.value)}/>
-                <label for="password">Password</label>
+                </label>
+
+                <label>Password
                 <input 
                     id="password" 
                     name="password" 
                     type="password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}/>
+                </label>
                 <button className="button" type="submit">Sign In</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
             </form>
             <p>Don't have a user account? Click here to <Link to="/signup">sign up</Link>!</p>

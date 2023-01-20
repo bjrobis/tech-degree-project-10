@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
 } from 'react-router-dom';
@@ -16,6 +15,7 @@ import UserSignUp from "./components/UserSignUp";
 import Courses from './components/Courses';
 import NotFound from './components/NotFound';
 import UserSignOut from './components/UserSignOut';
+
 
 
 function App() {

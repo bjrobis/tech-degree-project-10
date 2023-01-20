@@ -57,38 +57,42 @@ const UpdateCourse = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>
-                            <label for="courseTitle">Course Title</label>
+                            <label >Course Title
                             <input 
                                 id="courseTitle" 
                                 name="courseTitle" 
                                 type="text" 
                                 value={courseTitle} 
                                 onChange={(e) => setCourseTitle(e.target.value)}/>
+                            </label>
 
                             <p>{course.User.firstName} {course.User.lastName}</p>
 
-                            <label for="courseDescription">Course Description</label>
+                            <label >Course Description
                             <textarea 
                                 id="courseDescription" 
                                 name="courseDescription"
                                 value={courseDescription}
                                 onChange={(e) => setCourseDescription(e.target.value)}></textarea>
+                            </label>
                         </div>
                         <div>
-                            <label for="estimatedTime">Estimated Time</label>
+                            <label>Estimated Time
                             <input 
                                 id="estimatedTime" 
                                 name="estimatedTime" 
                                 type="text" 
                                 value={courseEstimatedTime}
                                 onChange={(e) => setEstimatedTime(e.target.value)} />
+                            </label>
 
-                            <label for="materialsNeeded">Materials Needed</label>
+                            <label>Materials Needed
                             <textarea 
                                 id="materialsNeeded" 
                                 name="materialsNeeded"
                                 value={courseMaterialsNeeded}
                                 onChange={(e) => setCourseMaterialsNeeded(e.target.value)}></textarea>
+                            </label>
                         </div>
                     </div>
                     <button className="button" type="submit">Update Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>

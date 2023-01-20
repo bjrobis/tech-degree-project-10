@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
 
-const CreateCourse = (props) => {
+
+const CreateCourse = () => {
     let navigate = useNavigate();
     
     //Set State
@@ -18,7 +19,7 @@ const CreateCourse = (props) => {
         navigate(-1);
       }
     
-      let handleSubmit = async (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
         try {
           let res = await fetch("http://localhost:5000/api/courses", {
@@ -41,6 +42,7 @@ const CreateCourse = (props) => {
         }
       };
 
+
    return(
     <React.Fragment>
         <div className="wrap">
@@ -55,39 +57,43 @@ const CreateCourse = (props) => {
     
         <form
             onSubmit={handleSubmit}>
-            <div class="main--flex">
+            <div className="main--flex">
                 <div>
-                    <label for="courseTitle">Course Title</label>
+                    <label>Course Title
                     <input 
                         id="courseTitle" 
                         name="courseTitle" 
                         type="text" 
                         value={courseTitle}
                         onChange={(e) => setCourseTitle(e.target.value)} />
+                    </label>
 
                     <p>By Joe Smith</p>
 
-                    <label for="courseDescription">Course Description</label>
+                    <label>Course Description
                     <textarea 
                         id="courseDescription" 
                         name="courseDescription"
                         onChange={(e) => setCourseDescription(e.target.value)}>{courseDescription}</textarea>
+                    </label>
                 </div>
                 
                 <div>
-                    <label for="estimatedTime">Estimated Time</label>
+                    <label >Estimated Time
                     <input 
                         id="estimatedTime" 
                         name="estimatedTime" 
                         type="text" 
                         value={courseEstimatedTime}
                         onChange={(e) => setEstimatedTime(e.target.value)} />
+                    </label>
 
-                    <label for="materialsNeeded">Materials Needed</label>
+                    <label>Materials Needed
                     <textarea 
                         id="materialsNeeded" 
                         name="materialsNeeded"
                         onChange={(e) => setCourseMaterialsNeeded(e.target.value)}>{courseMaterialsNeeded}</textarea>
+                    </label>
                 </div>
             </div>
             <button className="button" type="submit">Create Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>

@@ -5,7 +5,6 @@ const UserContext = createContext(null);
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(null);
-  const [message, setMessage] = useState([]);
 
   const navigate = useNavigate();
 
@@ -21,7 +20,8 @@ const userSignIn = (emailAddress, password) => {
   })
   .then(res => {
       if(res.status === 401) {
-          return navigate('/error');
+        alert("Invalid Username/Password")
+          return navigate('/signin');
       } else {
           navigate('/');
           return res.json();
@@ -29,10 +29,10 @@ const userSignIn = (emailAddress, password) => {
   })
   .then(data => {
       if(data.message) {
-          setMessage(data.message);
+          console.log(data.message);
       } else {
           //Set data for current user in global state
-          setUser(data.user);
+          setUser(data);
           setUser(prevState => ({...prevState, password: password}));
       };
   })
@@ -52,7 +52,7 @@ const userSignOut = (user) => {
       user,
       actions: {
         userSignIn: userSignIn,
-        userSignOut: userSignOut
+        userSignOut: userSignOut,
       }
     }}>
       {props.children}
