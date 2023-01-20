@@ -1,6 +1,8 @@
 import React, {useState, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
+import ReactMarkdown from 'react-markdown';
+import ReactDom from 'react-dom';
 
 const Courses = (props) => {
     const {user} = useContext(UserContext);
@@ -65,8 +67,8 @@ const Courses = (props) => {
                     <h3 className="course--detail--title">Course</h3>
                     <h4 className="course--name">{course.title}</h4>
                     <p>By: {course.User.firstName} {course.User.lastName}</p>
-
-                    <p>{course.description} </p>
+                    <p></p>
+                    <p><ReactMarkdown children={course.description}  /> </p>
                         
                 </div>
         
@@ -76,7 +78,7 @@ const Courses = (props) => {
 
                     <h3 className="course--detail--title">Materials Needed</h3>
                     <ul className="course--detail--list">
-                       {materialsList}
+                       <ReactMarkdown children={course.materialsNeeded} />
                     </ul>
                 </div>
             </div>
@@ -102,8 +104,8 @@ const Courses = (props) => {
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
                             <p>By: {course.User.firstName} {course.User.lastName}</p>
-        
-                            <p>{course.description} </p>
+                            <p></p>
+                            <p><ReactMarkdown children={course.description}  /> </p>
                                 
                         </div>
                 
@@ -113,7 +115,7 @@ const Courses = (props) => {
         
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                               {materialsList}
+                                <ReactMarkdown children={course.materialsNeeded} />
                             </ul>
                         </div>
                     </div>
