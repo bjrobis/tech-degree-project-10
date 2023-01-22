@@ -1,32 +1,21 @@
 import React, {useState, useContext} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import ReactMarkdown from 'react-markdown';
-import ReactDom from 'react-dom';
 
 const Courses = (props) => {
+    let navigate = useNavigate();
     const {user} = useContext(UserContext);
     let {courses} = props;  
-    let url =  window.location.href;
-    let id = url.substring(url.lastIndexOf('/') +1);
-    let index = id - 1;
+
+    //get the id path from the URL
+    let {id} = useParams();
+    const index = courses.findIndex(course => course.id === id);
     let course = courses[index];
-    let materials = course.materialsNeeded;
-    let materialsArray = [];
-    if (materials !== null) {
-        materialsArray = materials.split('*');
-    }
-    
     let updateCourseURL = `/courses/${id}/update`;
-    
-    let materialsList;
-    materialsList = materialsArray.map(material => <li>{material}</li>);
-
-    let navigate = useNavigate();
-
     let [posts, setPosts] = useState([]);
 
-    console.log(course);
+    console.log(courses);
 
 // Delete with fetchAPI
    const handleDelete = async () => {
@@ -57,7 +46,7 @@ const Courses = (props) => {
     <div className="actions--bar">
         <div className="wrap">
             <Link className="button" to={updateCourseURL}>Update Course</Link>
-            <Link className="button" onClick={handleDelete}>Delete Course</Link>
+            <button className="button" onClick={handleDelete}>Delete Course</button>
             <Link className="button button-secondary" to="/">Return to List</Link>
         </div>
     </div>
@@ -70,7 +59,7 @@ const Courses = (props) => {
                     <h3 className="course--detail--title">Course</h3>
                     <h4 className="course--name">{course.title}</h4>
                     <p>By: {course.User.firstName} {course.User.lastName}</p>
-                    <p></p>
+                
                     <p><ReactMarkdown children={course.description}  /> </p>
                         
                 </div>
@@ -107,7 +96,7 @@ const Courses = (props) => {
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{course.title}</h4>
                             <p>By: {course.User.firstName} {course.User.lastName}</p>
-                            <p></p>
+                
                             <p><ReactMarkdown children={course.description}  /> </p>
                                 
                         </div>

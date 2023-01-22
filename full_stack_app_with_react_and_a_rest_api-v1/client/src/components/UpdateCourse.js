@@ -1,16 +1,16 @@
 import React, {useState, useContext} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 const UpdateCourse = (props) => {
  
   const {user} = useContext(UserContext);
     let {courses} = props;
-    let url =  window.location.href;
-    let substring = url.substring(url.lastIndexOf('/courses/') +1);
-    let subindex = substring.substr(8, 1);
-    let id = subindex - 1;
-    let course = courses[id];
+
+    //get the id path from the URL
+    let {id} = useParams();
+    let index = id - 1;
+    let course = courses[index];
 
     let navigate = useNavigate();
 
@@ -44,7 +44,6 @@ const UpdateCourse = (props) => {
               materialsNeeded: courseMaterialsNeeded,
             }),
           });
-          let resJson = await res.json();
           if (res.status === 200) {
             navigate("/");
           } else {

@@ -19,13 +19,19 @@ const UserSignUp = ({userSignIn}) => {
     let [password, setPassword] = useState('');
     let [errors, setErrors] = useState([]);
 
+    
     const handleSignUp = () => {
         fetch('http://localhost:5000/api/users', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
               },
-            body: JSON.stringify({firstName, lastName, email, password})
+            body: JSON.stringify({
+                firstName: firstName, 
+                lastName: lastName, 
+                emailAddress: email, 
+                password: password
+            })
         })
         .then(res => {
             if(res.status  === 201) {
