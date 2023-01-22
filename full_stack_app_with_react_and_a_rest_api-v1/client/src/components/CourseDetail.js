@@ -10,9 +10,15 @@ const Courses = (props) => {
 
     //get the id path from the URL
     let {id} = useParams();
-    const index = courses.findIndex(course => course.id === id);
+    //convert the id into an Integer
+    let newID = parseInt(id);
+
+    //find the index in the array of the ID
+    const index = courses.findIndex(course => course.id === newID);
     let course = courses[index];
-    let updateCourseURL = `/courses/${id}/update`;
+    let updateCourseURL = `/courses/${newID}/update`;
+    
+    //set State
     let [posts, setPosts] = useState([]);
 
     console.log(courses);
@@ -20,7 +26,7 @@ const Courses = (props) => {
 // Delete with fetchAPI
    const handleDelete = async () => {
     let response = await fetch(
-       `http://localhost:5000/api/courses/${id}`,
+       `http://localhost:5000/api/courses/${newID}`,
        {
           method: 'DELETE',
           headers: {

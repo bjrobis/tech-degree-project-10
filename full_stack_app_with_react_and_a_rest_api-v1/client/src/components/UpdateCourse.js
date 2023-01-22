@@ -9,7 +9,11 @@ const UpdateCourse = (props) => {
 
     //get the id path from the URL
     let {id} = useParams();
-    let index = id - 1;
+    let newID = parseInt(id);
+
+    //find the index in the array of the ID
+    const index = courses.findIndex(course => course.id === newID);
+
     let course = courses[index];
 
     let navigate = useNavigate();
@@ -19,7 +23,7 @@ const UpdateCourse = (props) => {
         navigate(-1);
       } 
     
-    let putURL = `http://localhost:5000/api/courses/${id}`;
+    let putURL = `http://localhost:5000/api/courses/${newID}`;
 
     //Set State
     let [courseTitle, setCourseTitle] = useState(course.title);
