@@ -19,11 +19,11 @@ const UserSignUp = () => {
     let [lastName, setLastName] = useState('');
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
-    let [errors, setErrors] = useState([]);
+    let [error, setErrors] = useState([]);
 
     
-    const signUp = () => {
-        fetch('http://localhost:5000/api/users', {
+    const signUp = async () => {
+        await fetch('http://localhost:5000/api/users', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -47,6 +47,7 @@ const UserSignUp = () => {
         .then(data => {
             if(data) {
                 setErrors(data.errors);
+                console.log(error);
             }
         })
         .catch((error) => {

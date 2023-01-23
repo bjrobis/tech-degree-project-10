@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
@@ -13,10 +13,11 @@ const CreateCourse = () => {
     let [courseDescription, setCourseDescription] = useState("");
     let [courseEstimatedTime, setEstimatedTime] = useState("");
     let [courseMaterialsNeeded, setCourseMaterialsNeeded] = useState("");
-    let [errors, setErrors] = useState(null);
+    //let [errors, setErrors] = useState(null);
+    const [valErrors, setValErrors ] = useState([]); 
 
-    const addCourse = () => {
-            fetch('http://localhost:5000/api/courses', {
+    const addCourse = async () => {
+            await fetch('http://localhost:5000/api/courses', {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -27,26 +28,24 @@ const CreateCourse = () => {
                 description: courseDescription,
                 estimatedTime: courseEstimatedTime,
                 materialsNeeded: courseMaterialsNeeded,
+                userId: user.id, 
             })
         })
         .then(res => {
             if(res.status  === 201) {
                 console.log('Success')
-            } else if(res.status === 500) {
-                alert('There was a server errror');
+            } else if (res.status ===400) {
+               return res.json().then(data => {
+                return data.errors
+               });
             } else {
-                return res.json();
+                throw new Error('Error: There was a server error');
             }
         })
-        .then(data => {
-            if(data) {
-                setErrors(data.errors);
-                console.log(errors);
-            }
-        })
-        .catch((error) => {
-            console.log('Error:', error);
-        });
+        .then(errors =>(errors ? setValErrors(errors) : navigate('/')))
+        .catch((err) => {
+            console.log('Error related to course creation', err) 
+        }); 
     }
 
 
@@ -58,7 +57,10 @@ const CreateCourse = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         addCourse();
-        navigate('/');
+        // if (courseTitle !== "" && courseDescription !== "") {
+        //     addCourse();
+        //     navigate('/');
+        // } 
       };
 
 
@@ -66,16 +68,17 @@ const CreateCourse = () => {
     <React.Fragment>
         <div className="wrap">
             <h2>Create Course</h2>
-            <div className="validation--errors">
-                <h3>Validation Errors</h3>
-                <ul>
-                    <li>Please provide a value for "Title"</li>
-                    <li>Please provide a value for "Description"</li>
-                </ul>
-            </div>
+            {valErrors.length !== 0 ? (
+                        <div className="validation--errors">
+                            <h3>Validation Errors</h3>
+                            <ul>
+                                {valErrors.map((error, index) => <li key={index}>{error}</li>)}
+                            </ul>
+                        </div>
+                    ): null }
     
         <form
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit} >
             <div className="main--flex">
                 <div>
                     <label>Course Title

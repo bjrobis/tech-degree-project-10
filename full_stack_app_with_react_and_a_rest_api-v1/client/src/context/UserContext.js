@@ -11,8 +11,8 @@ export const UserProvider = (props) => {
 
   
 //Sign-in by passing the emailAddress and password to the api
-const userSignIn = (emailAddress, password) => {
-  fetch('http://localhost:5000/api/users', {
+const userSignIn = async (emailAddress, password) => {
+  await fetch('http://localhost:5000/api/users', {
       method: "GET",
       headers: {
           "Content-Type": "application/json; charset=utf-8", 

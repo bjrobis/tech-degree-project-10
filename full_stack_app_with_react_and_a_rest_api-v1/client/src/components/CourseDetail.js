@@ -25,9 +25,9 @@ const Courses = (props) => {
     let updateCourseURL = `/courses/${newID}/update`;
 
     //handle to delete a course 
-    const deleteCourse = () => {
+    const deleteCourse = async () => {
     // DELETE request using fetch with error handling
-    fetch(`http://localhost:5000/api/courses/${newID}`, { 
+    await fetch(`http://localhost:5000/api/courses/${newID}`, { 
         method: 'DELETE',
         headers: { 
             "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
