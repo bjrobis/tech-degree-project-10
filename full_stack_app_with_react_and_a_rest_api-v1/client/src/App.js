@@ -38,8 +38,6 @@ useEffect(() => {
 });
 },[courses]);
 
-console.log(courses);
-
   return (
     <React.Fragment>
       <Header />

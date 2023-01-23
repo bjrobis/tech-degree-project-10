@@ -55,7 +55,6 @@ const Courses = (props) => {
     if (user !== null && user.id === course.userId) {
     return(
     <React.Fragment>
-    <main>
     <div className="actions--bar">
         <div className="wrap">
             <Link className="button" to={updateCourseURL}>Update Course</Link>
@@ -63,6 +62,7 @@ const Courses = (props) => {
             <Link className="button button-secondary" to="/">Return to List</Link>
         </div>
     </div>
+
 
     <div className="wrap">
         <h2>Course Detail</h2>
@@ -89,19 +89,18 @@ const Courses = (props) => {
             </div>
         </form>
     </div>
-    </main>
     </React.Fragment>
     
     );
     } else {
         return(
             <React.Fragment>
-            <main>
             <div className="actions--bar">
                 <div className="wrap">
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>
             </div>
+
         
             <div className="wrap">
                 <h2>Course Detail</h2>
@@ -128,7 +127,6 @@ const Courses = (props) => {
                     </div>
                 </form>
             </div>
-            </main>
             </React.Fragment>
             
             );

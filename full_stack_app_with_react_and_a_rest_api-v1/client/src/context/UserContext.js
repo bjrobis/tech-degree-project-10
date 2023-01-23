@@ -45,7 +45,6 @@ const userSignIn = async (emailAddress, password) => {
 
 const userSignOut = (user) => {
   setUser(null);
-  navigate('/');
 }
 
 
