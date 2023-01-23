@@ -25,7 +25,7 @@ function App() {
   let [courses, setCourses] = useState([]);
 
 
-  //Pull in the course data
+//Pull in the course data
 useEffect(() => {
  axios.get("http://localhost:5000/api/courses")
 .then(response => {
@@ -36,7 +36,7 @@ useEffect(() => {
   // handle error
   console.log("Error fetching and parsing data", error);
 });
-},[]);
+},[courses]);
 
 
 

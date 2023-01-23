@@ -5,6 +5,7 @@ const UserContext = createContext(null);
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState(null);
+  
 
   const navigate = useNavigate();
 
@@ -46,6 +47,8 @@ const userSignOut = (user) => {
   setUser(null);
   navigate('/');
 }
+
+
 
 
   return (

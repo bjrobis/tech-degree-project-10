@@ -5,7 +5,8 @@ import UserContext from '../context/UserContext';
 const UpdateCourse = (props) => {
  
   const {user} = useContext(UserContext);
-    let {courses} = props;
+  let {courses} = props;
+
 
     //get the id path from the URL
     let {id} = useParams();
@@ -32,8 +33,7 @@ const UpdateCourse = (props) => {
     let [courseMaterialsNeeded, setCourseMaterialsNeeded] = useState(course.materialsNeeded);
     let [message, setMessage] = useState("");
 
-    let handleSubmit = async (e) => {
-        e.preventDefault();
+    let updateCourse = async () => {
         try {
           let res = await fetch(putURL, {
             method: "PUT",
@@ -49,7 +49,7 @@ const UpdateCourse = (props) => {
             }),
           });
           if (res.status === 200) {
-            navigate("/");
+            console.log('success');
           } else {
             setMessage("An error occured");
           }
@@ -57,6 +57,12 @@ const UpdateCourse = (props) => {
           console.log(err);
         }
       };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        updateCourse();
+        navigate('/');
+      }
 
     return(
         <React.Fragment>

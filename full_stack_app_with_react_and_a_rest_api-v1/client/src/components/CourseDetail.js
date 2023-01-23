@@ -1,12 +1,18 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import ReactMarkdown from 'react-markdown';
 
 const Courses = (props) => {
     let navigate = useNavigate();
+    
     const {user} = useContext(UserContext);
-    let {courses} = props;  
+    let {courses} = props;
+
+    //set state
+    const [status, setStatus] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
+
 
     //get the id path from the URL
     let {id} = useParams();
@@ -17,34 +23,41 @@ const Courses = (props) => {
     const index = courses.findIndex(course => course.id === newID);
     let course = courses[index];
     let updateCourseURL = `/courses/${newID}/update`;
-    
-    //set State
-    let [posts, setPosts] = useState([]);
 
-    console.log(courses);
-
-// Delete with fetchAPI
-   const handleDelete = async () => {
-    let response = await fetch(
-       `http://localhost:5000/api/courses/${newID}`,
-       {
-          method: 'DELETE',
-          headers: {
+    //handle to delete a course 
+    const deleteCourse = () => {
+    // DELETE request using fetch with error handling
+    fetch(`http://localhost:5000/api/courses/${newID}`, { 
+        method: 'DELETE',
+        headers: { 
             "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
-          },
-       }
-    );
-    if (response.status === 200) {
-       setPosts(
-          posts.filter((post) => {
-             return post.id !== id;
-          })
-       );
-       navigate('/');
-    } else {
-       return;
-    }
- };
+        } })
+        .then(async response => {
+            const data = await response.json();
+  
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+  
+            setStatus('Delete successful');
+            console.log(status);
+        })
+        .catch(error => {
+            setErrorMessage(error);
+            console.error('There was an error!', error);
+            console.log(errorMessage);
+        });
+  };
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        deleteCourse();
+        navigate('/');
+      }
+
 
     if (user !== null && user.id === course.userId) {
     return(

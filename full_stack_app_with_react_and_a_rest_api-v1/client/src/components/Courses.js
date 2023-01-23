@@ -10,8 +10,6 @@ const Courses = (props) => {
         courses = results.map(course => <CourseList title={course.title} key={course.id} url={`/courses/${course.id}`}/>);
       } 
     
-      console.log(courses);
-    
     return(
         <div className="wrap main--grid">
             

@@ -1,11 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 
 
 
 const CreateCourse = () => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const {user} = useContext(UserContext);
     
     //Set State
@@ -13,7 +13,42 @@ const CreateCourse = () => {
     let [courseDescription, setCourseDescription] = useState("");
     let [courseEstimatedTime, setEstimatedTime] = useState("");
     let [courseMaterialsNeeded, setCourseMaterialsNeeded] = useState("");
-    let [message, setMessage] = useState("");
+    let [errors, setErrors] = useState(null);
+
+    const addCourse = () => {
+            fetch('http://localhost:5000/api/courses', {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
+            },
+            body: JSON.stringify({
+                title: courseTitle,
+                description: courseDescription,
+                estimatedTime: courseEstimatedTime,
+                materialsNeeded: courseMaterialsNeeded,
+            })
+        })
+        .then(res => {
+            if(res.status  === 201) {
+                console.log('Success')
+            } else if(res.status === 500) {
+                alert('There was a server errror');
+            } else {
+                return res.json();
+            }
+        })
+        .then(data => {
+            if(data) {
+                setErrors(data.errors);
+                console.log(errors);
+            }
+        })
+        .catch((error) => {
+            console.log('Error:', error);
+        });
+    }
+
 
     const handleCancel = (event) => {
         event.preventDefault();
@@ -22,29 +57,8 @@ const CreateCourse = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-          let res = await fetch("http://localhost:5000/api/courses", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json; charset=utf-8",
-              "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
-            },
-            body: JSON.stringify({
-              title: courseTitle,
-              description: courseDescription,
-              estimatedTime: courseEstimatedTime,
-              materialsNeeded: courseMaterialsNeeded,
-            }),
-          });
-          let resJson = await res.json();
-          if (res.status === 200) {
-            navigate("/");
-          } else {
-            setMessage("An error occured");
-          }
-        } catch (err) {
-          console.log(err);
-        }
+        addCourse();
+        navigate('/');
       };
 
 
@@ -79,7 +93,8 @@ const CreateCourse = () => {
                     <textarea 
                         id="courseDescription" 
                         name="courseDescription"
-                        onChange={(e) => setCourseDescription(e.target.value)}>{courseDescription}</textarea>
+                        value={courseDescription}
+                        onChange={(e) => setCourseDescription(e.target.value)}></textarea>
                     </label>
                 </div>
                 
@@ -97,12 +112,12 @@ const CreateCourse = () => {
                     <textarea 
                         id="materialsNeeded" 
                         name="materialsNeeded"
-                        onChange={(e) => setCourseMaterialsNeeded(e.target.value)}>{courseMaterialsNeeded}</textarea>
+                        value={courseMaterialsNeeded}
+                        onChange={(e) => setCourseMaterialsNeeded(e.target.value)}></textarea>
                     </label>
                 </div>
             </div>
             <button className="button" type="submit">Create Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
-            <div className="message">{message ? <p>{message}</p> : null}</div>
         </form>
 </div>
 </React.Fragment>

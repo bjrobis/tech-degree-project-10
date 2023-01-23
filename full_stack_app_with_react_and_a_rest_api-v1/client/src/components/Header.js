@@ -4,7 +4,6 @@ import UserContext from '../context/UserContext';
 
 const Header = () => {
   const {user} = useContext(UserContext);
-  console.log(user);
 
   if (user !== null) {
     return(

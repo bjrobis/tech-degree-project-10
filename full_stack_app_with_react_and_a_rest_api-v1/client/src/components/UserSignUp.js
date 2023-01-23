@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Link  } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../context/UserContext';
 
 
 
-const UserSignUp = ({userSignIn}) => {
+const UserSignUp = () => {
 
   let navigate = useNavigate();
+  const { actions } = useContext(UserContext);
     
   const handleCancel = (event) => {
       event.preventDefault();
@@ -20,7 +22,7 @@ const UserSignUp = ({userSignIn}) => {
     let [errors, setErrors] = useState([]);
 
     
-    const handleSignUp = () => {
+    const signUp = () => {
         fetch('http://localhost:5000/api/users', {
             method: "POST",
             headers: {
@@ -35,8 +37,7 @@ const UserSignUp = ({userSignIn}) => {
         })
         .then(res => {
             if(res.status  === 201) {
-                userSignIn(email, password);
-                navigate('/');
+                console.log('Success')
             } else if(res.status === 500) {
                 alert('There was a server errror');
             } else {
@@ -51,6 +52,13 @@ const UserSignUp = ({userSignIn}) => {
         .catch((error) => {
             console.log('Error:', error);
         });
+    }
+
+    const handleSignUp = (event) => {
+        event.preventDefault();
+        signUp();
+        actions.userSignIn(email, password);
+        navigate('/');
     }
 
 
