@@ -34,9 +34,9 @@ const CreateCourse = () => {
         .then(res => {
             if(res.status  === 201) {
                 console.log('Success')
-            } else if (res.status ===400) {
+            } else if (res.status === 400) {
                return res.json().then(data => {
-                return data.errors
+                    return data.errros;
                });
             } else {
                 throw new Error('Error: There was a server error');
@@ -56,11 +56,16 @@ const CreateCourse = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
+        setValErrors([]);
+        if (courseTitle === '' || courseTitle === null) {
+            setValErrors(prevState => ([...prevState, 'A course title is Required']));
+        }
+        if (courseDescription === '' || courseDescription === null) {
+            setValErrors(prevState => ([...prevState,'A course desciption is Required']));
+        }
+        if (courseTitle !== '' && courseTitle !== null && courseDescription !== null && courseDescription !== '') {
         addCourse();
-        // if (courseTitle !== "" && courseDescription !== "") {
-        //     addCourse();
-        //     navigate('/');
-        // } 
+        }
       };
 
 

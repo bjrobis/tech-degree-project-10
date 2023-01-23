@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import ReactMarkdown from 'react-markdown';
@@ -8,10 +8,6 @@ const Courses = (props) => {
     
     const {user} = useContext(UserContext);
     let {courses} = props;
-
-    //set state
-    const [status, setStatus] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
 
 
     //get the id path from the URL
@@ -32,24 +28,21 @@ const Courses = (props) => {
         headers: { 
             "Authorization": 'Basic ' + btoa(`${user.emailAddress}:${user.password}`)
         } })
-        .then(async response => {
-            const data = await response.json();
-  
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = (data && data.message) || response.status;
-                return Promise.reject(error);
+        .then(res => {
+            if(res.status  === 204) {
+                console.log('Success')
+            } else if (res.status === 401) {
+               return res.json().then(data => {
+                return console.log(data.errors);
+               });
+            } else {
+                throw new Error('Error: There was a server error');
             }
-  
-            setStatus('Delete successful');
-            console.log(status);
         })
-        .catch(error => {
-            setErrorMessage(error);
-            console.error('There was an error!', error);
-            console.log(errorMessage);
-        });
+        .then(errors =>(errors ? console.log(errors) : navigate('/')))
+        .catch((err) => {
+            console.log('Error related to course creation', err) 
+        }); 
   };
 
     const handleDelete = (e) => {

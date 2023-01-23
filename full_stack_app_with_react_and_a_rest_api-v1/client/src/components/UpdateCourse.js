@@ -32,10 +32,10 @@ const UpdateCourse = (props) => {
     let [courseEstimatedTime, setEstimatedTime] = useState(course.estimatedTime);
     let [courseMaterialsNeeded, setCourseMaterialsNeeded] = useState(course.materialsNeeded);
     let [message, setMessage] = useState("");
+    const [valErrors, setValErrors ] = useState([]);
 
     let updateCourse = async () => {
-        try {
-          let res = await fetch(putURL, {
+          await fetch(putURL, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json; charset=utf-8",
@@ -47,27 +47,43 @@ const UpdateCourse = (props) => {
               estimatedTime: courseEstimatedTime,
               materialsNeeded: courseMaterialsNeeded,
             }),
-          });
-          if (res.status === 200) {
-            console.log('success');
+          })
+          .then(res => {
+          if (res.status === 204) {
+            return [];
+          } else if (res.status === 400) {
+            return res.json().then(data => {
+              return data.errors
+            });
+          } else if (res.status === 404) {
+            throw new Error("404");
           } else {
-            setMessage("An error occured");
+            throw new Error("505");
           }
-        } catch (err) {
-          console.log(err);
-        }
+          })
+          .then(errors =>(errors.length ? setValErrors(errors) : navigate(`/courses/${id}`))) 
+          .catch((err) => {
+            console.log(err); 
+          }); 
       };
 
       const handleSubmit = (e) => {
         e.preventDefault();
         updateCourse();
-        navigate('/');
       }
 
     return(
         <React.Fragment>
             <div className="wrap">
                 <h2>Update Course</h2>
+                {valErrors.length !== 0 ? (
+                        <div className="validation--errors">
+                            <h3>Validation Errors</h3>
+                            <ul>
+                                {valErrors.map((error, index) => <li key={index}>{error}</li>)}
+                            </ul>
+                        </div>
+                    ): null }
                 <form onSubmit={handleSubmit}>
                     <div className="main--flex">
                         <div>

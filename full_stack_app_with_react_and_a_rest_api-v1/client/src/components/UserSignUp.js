@@ -15,11 +15,11 @@ const UserSignUp = () => {
       navigate('/');
     } 
     
-    let [firstName, setFirstName] = useState('');
-    let [lastName, setLastName] = useState('');
-    let [email, setEmail] = useState('');
-    let [password, setPassword] = useState('');
-    let [error, setErrors] = useState([]);
+    let [firstName, setFirstName] = useState(null);
+    let [lastName, setLastName] = useState(null);
+    let [email, setEmail] = useState(null);
+    let [password, setPassword] = useState(null);
+    const [valErrors, setValErrors ] = useState([]);
 
     
     const signUp = async () => {
@@ -36,30 +36,40 @@ const UserSignUp = () => {
             })
         })
         .then(res => {
-            if(res.status  === 201) {
-                console.log('Success')
-            } else if(res.status === 500) {
-                alert('There was a server errror');
-            } else {
-                return res.json();
-            }
+            if (res.status === 201) {
+                actions.userSignIn(email, password);
+                return [];
+              } else if (res.status === 400) {
+                //will return validation errors 
+                return res.json().then(data => {
+                  return data.errors
+                });
+              } else {
+                throw new Error('Error: There was an issue processing this request with the server');
+              }
         })
-        .then(data => {
-            if(data) {
-                setErrors(data.errors);
-                console.log(error);
-            }
-        })
-        .catch((error) => {
-            console.log('Error:', error);
-        });
+        .then(errors =>(errors ? setValErrors(errors) : console.log('no errors')))
+        .catch((err) => {
+            console.log('Error signing up', err) 
+        }); 
     }
 
     const handleSignUp = (event) => {
         event.preventDefault();
+        setValErrors([]);
+        if (firstName === '' || firstName === null) {
+            setValErrors(prevState => ([...prevState, 'First Name is Required']));
+        }
+        if (lastName === '' || lastName === null) {
+            setValErrors(prevState => ([...prevState,'Last Name is Required']));
+        }
+        if (email === '' || email === null) {
+            setValErrors(prevState => ([...prevState,'E-mail is Required']));
+        }
+        if (password === '' || password === null) {
+            setValErrors(prevState => ([...prevState,'A password is Required']));
+        }
         signUp();
-        actions.userSignIn(email, password);
-        navigate('/');
     }
 
 
@@ -68,7 +78,15 @@ const UserSignUp = () => {
    return(
     <React.Fragment>
         <div className="form--centered">
-            <h2>Sign Up</h2>    
+            <h2>Sign Up</h2> 
+            {valErrors.length !== 0 ? (
+              <div className='validation--errors'>
+                        <h3>Validation Errors</h3>
+                        <ul>
+                            {valErrors.map((error, index) => <li key={index}>{error}</li>)}
+                        </ul>
+              </div>
+              ): null }
             <form onSubmit={handleSignUp}>
                 <label>First Name
                 <input 

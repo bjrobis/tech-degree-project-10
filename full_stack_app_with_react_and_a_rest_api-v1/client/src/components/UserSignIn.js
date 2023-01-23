@@ -10,12 +10,12 @@ const UserSignIn = () => {
       navigate('/');
     }
 
-    const {actions} = useContext(UserProvider);
+    let {actions} = useContext(UserProvider);
     
 
 
-    const [emailAddress, setEmailAddress] = useState();
-    const [password, setPassword] = useState();
+    let [emailAddress, setEmailAddress] = useState();
+    let [password, setPassword] = useState();
 
     const handleSubmit = (e) => {
       e.preventDefault();
