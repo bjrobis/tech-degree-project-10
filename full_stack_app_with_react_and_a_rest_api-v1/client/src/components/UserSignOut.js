@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from '../context/UserContext';
 
@@ -7,8 +7,10 @@ const UserSignOut = () => {
     let user = useContext(UserContext);
     let {actions} = useContext(UserContext);
 
-    actions.userSignOut(user);
-    navigate('/');
+    useEffect(() => {
+        actions.userSignOut(user);
+        navigate('/');
+       },[]);
 
 };
 

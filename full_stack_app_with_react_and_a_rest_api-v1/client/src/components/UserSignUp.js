@@ -15,10 +15,10 @@ const UserSignUp = () => {
       navigate('/');
     } 
     
-    let [firstName, setFirstName] = useState(null);
-    let [lastName, setLastName] = useState(null);
-    let [email, setEmail] = useState(null);
-    let [password, setPassword] = useState(null);
+    let [firstName, setFirstName] = useState('');
+    let [lastName, setLastName] = useState('');
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
     const [valErrors, setValErrors ] = useState([]);
 
     
@@ -48,7 +48,7 @@ const UserSignUp = () => {
                 throw new Error('Error: There was an issue processing this request with the server');
               }
         })
-        .then(errors =>(errors ? setValErrors(errors) : console.log('no errors')))
+        .then(errors =>(errors ? setValErrors(errors) : console.log('')))
         .catch((err) => {
             console.log('Error signing up', err) 
         }); 

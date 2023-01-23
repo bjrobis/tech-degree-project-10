@@ -55,13 +55,13 @@ const Courses = (props) => {
     if (user !== null && user.id === course.userId) {
     return(
     <React.Fragment>
-    <div className="actions--bar">
-        <div className="wrap">
-            <Link className="button" to={updateCourseURL}>Update Course</Link>
-            <button className="button" onClick={handleDelete}>Delete Course</button>
-            <Link className="button button-secondary" to="/">Return to List</Link>
+        <div className="actions--bar">
+            <div className="wrap">
+                <Link className="button" to={updateCourseURL}>Update Course</Link>
+                <button className="button" onClick={handleDelete}>Delete Course</button>
+                <Link className="button button-secondary" to="/">Return to List</Link>
+             </div>
         </div>
-    </div>
 
 
     <div className="wrap">
@@ -73,7 +73,7 @@ const Courses = (props) => {
                     <h4 className="course--name">{course.title}</h4>
                     <p>By: {course.User.firstName} {course.User.lastName}</p>
                 
-                    <p><ReactMarkdown children={course.description}  /> </p>
+                    <ReactMarkdown children={course.description}  /> 
                         
                 </div>
         
@@ -95,11 +95,12 @@ const Courses = (props) => {
     } else {
         return(
             <React.Fragment>
-            <div className="actions--bar">
-                <div className="wrap">
-                    <Link className="button button-secondary" to="/">Return to List</Link>
+                <div className="actions--bar">
+                    <div className="wrap">
+                        <Link className="button button-secondary" to="/">Return to List</Link>
+                    </div>
                 </div>
-            </div>
+
 
         
             <div className="wrap">
@@ -111,7 +112,7 @@ const Courses = (props) => {
                             <h4 className="course--name">{course.title}</h4>
                             <p>By: {course.User.firstName} {course.User.lastName}</p>
                 
-                            <p><ReactMarkdown children={course.description}  /> </p>
+                             <ReactMarkdown children={course.description}  /> 
                                 
                         </div>
                 

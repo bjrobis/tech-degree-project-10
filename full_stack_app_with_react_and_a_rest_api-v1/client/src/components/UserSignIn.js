@@ -14,8 +14,8 @@ const UserSignIn = () => {
     
 
 
-    let [emailAddress, setEmailAddress] = useState();
-    let [password, setPassword] = useState();
+    let [emailAddress, setEmailAddress] = useState('');
+    let [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
       e.preventDefault();
