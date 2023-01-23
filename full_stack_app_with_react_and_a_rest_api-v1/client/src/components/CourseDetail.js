@@ -78,7 +78,7 @@ const Courses = (props) => {
         
                 <div>
                     <h3 className="course--detail--title">Estimated Time</h3>
-                    <p>{course.estimatedTime} Hours</p>
+                    <p>{course.estimatedTime}</p>
 
                     <h3 className="course--detail--title">Materials Needed</h3>
                     <ul className="course--detail--list">
@@ -115,7 +115,7 @@ const Courses = (props) => {
                 
                         <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
-                            <p>{course.estimatedTime} Hours</p>
+                            <p>{course.estimatedTime}</p>
         
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
