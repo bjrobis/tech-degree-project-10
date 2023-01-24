@@ -10,7 +10,7 @@ const UserSignOut = () => {
     useEffect(() => {
         actions.userSignOut(user);
         navigate('/');
-       },[]);
+       },[user, actions, navigate]);
 
 };
 

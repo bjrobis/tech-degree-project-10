@@ -31,7 +31,6 @@ const UpdateCourse = (props) => {
     let [courseDescription, setCourseDescription] = useState(course.description);
     let [courseEstimatedTime, setEstimatedTime] = useState(course.estimatedTime);
     let [courseMaterialsNeeded, setCourseMaterialsNeeded] = useState(course.materialsNeeded);
-    let [message, setMessage] = useState("");
     const [valErrors, setValErrors ] = useState([]);
 
     let updateCourse = async () => {
@@ -126,7 +125,6 @@ const UpdateCourse = (props) => {
                         </div>
                     </div>
                     <button className="button" type="submit">Update Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
-                    <div className="message">{message ? <p>{message}</p> : null}</div>
                 </form>
             </div>
         </React.Fragment>
